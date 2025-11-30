@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 
 # First, run updates
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
+
+# Grab some user input
+read -p 'E-mail: ' input_email
+read -p 'Full name: ' input_name
 
 # Install Firefox & Thunderbird, with the right localization.
 LANGCODE=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
@@ -88,6 +92,17 @@ starship preset gruvbox-rainbow -o ~/.config/starship.toml
 # Install some more CLI tools
 sudo pacman -S --needed --noconfirm git openssh btop jq yq lazygit dysk github-cli impala bluetui 
 
+# Generate SSH key
+if [ ! -f ~/.ssh/id_ed25519 ]; then
+    ssh-keygen -t ed25519 -C "$input_email" -N "" -f ~/.ssh/id_ed25519
+fi
+
+# Configure Git
+git config --global user.name "$input_name"
+git config --global user.email "$input_email"
+git config --global color.ui auto
+git config --global init.defaultBranch main
+
 # Install Bitwarden & Signal
 sudo pacman -S --needed --noconfirm bitwarden signal-desktop
 
@@ -113,3 +128,6 @@ sudo flatpak install --noninteractive flathub com.spotify.Client
 sudo pacman -S --needed --noconfirm fastfetch lolcat
 fastfetch | lolcat
 
+# Echo SSH key
+echo "Add the following SSH key to your GitHub settings:"
+cat ~/.ssh/id_25519.pub | lolcat
