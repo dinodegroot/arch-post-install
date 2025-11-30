@@ -5,7 +5,7 @@ LANGCODE=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 sudo pacman -S --needed firefox firefox-i18n-$LANGCODE thunderbird thunderbird-i18n-$LANGCODE
 
 # Configure terminal apps & tools
-sudo pacman -S --needed alacritty ghossty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
+sudo pacman -S --needed alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
 cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
 
