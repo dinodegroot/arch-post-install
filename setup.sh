@@ -5,10 +5,10 @@ sudo pacman -Syu
 
 # Install Firefox & Thunderbird, with the right localization.
 LANGCODE=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
-sudo pacman -Sy --needed firefox firefox-i18n-$LANGCODE thunderbird thunderbird-i18n-$LANGCODE
+sudo pacman -S --needed --noconfirm firefox firefox-i18n-$LANGCODE thunderbird thunderbird-i18n-$LANGCODE
 
 # Configure terminal apps & tools
-sudo pacman -Sy --needed alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
+sudo pacman -S --needed --noconfirm alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
 
 cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
@@ -86,8 +86,30 @@ EOF
 starship preset gruvbox-rainbow -o ~/.config/starship.toml
 
 # Install some more CLI tools
-sudo pacman -Sy --needed git openssh htop bashtop jq yq lazygit ducker dysk
+sudo pacman -S --needed --noconfirm git openssh htop bashtop jq yq lazygit dysk github-cli
 
-# Install Bitwarden
-sudo pacman -Sy --needed bitwarden
+# Install Bitwarden & Signal
+sudo pacman -S --needed --noconfirm bitwarden signal-desktop
+
+# Install JDK & Maven
+sudo pacman -S --needed --noconfirm jdk-openjdk openjdk-doc openjdk-src maven gradle kotlin clojure leiningen
+
+# Install and enable Docker
+sudo pacman -S --needed --noconfirm docker docker-compose lazydocker ducker
+sudo systemctl enable docker.socket
+sudo usermod -aG docker $USER
+
+# Install IDE's
+sudo pacman -S --needed --noconfirm code intellij-idea-community-edition
+
+# Install Flatpak's
+sudo pacman -S --needed --noconfirm flatpak
+flatpak install flathub com.google.Chrome
+flatpak install flathub com.microsoft.Edge
+flatpak install flathub com.heroicgameslauncher.hgl
+flatpak install flathub com.spotify.Client
+
+# Print some colorful stuff to finish up
+sudo pacman -S --needed --noconfirm fastfetch lolcat
+fastfetch | lolcat
 
