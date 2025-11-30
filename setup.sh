@@ -86,7 +86,7 @@ EOF
 starship preset gruvbox-rainbow -o ~/.config/starship.toml
 
 # Install some more CLI tools
-sudo pacman -S --needed --noconfirm git openssh htop bashtop jq yq lazygit dysk github-cli
+sudo pacman -S --needed --noconfirm git openssh btop jq yq lazygit dysk github-cli impala bluetui 
 
 # Install Bitwarden & Signal
 sudo pacman -S --needed --noconfirm bitwarden signal-desktop
@@ -104,10 +104,10 @@ sudo pacman -S --needed --noconfirm code intellij-idea-community-edition
 
 # Install Flatpak's
 sudo pacman -S --needed --noconfirm flatpak
-flatpak install flathub com.google.Chrome
-flatpak install flathub com.microsoft.Edge
-flatpak install flathub com.heroicgameslauncher.hgl
-flatpak install flathub com.spotify.Client
+sudo flatpak install --noninteractive flathub com.google.Chrome
+sudo flatpak install --noninteractive flathub com.microsoft.Edge
+sudo flatpak install --noninteractive flathub com.heroicgameslauncher.hgl
+sudo flatpak install --noninteractive flathub com.spotify.Client
 
 # Print some colorful stuff to finish up
 sudo pacman -S --needed --noconfirm fastfetch lolcat
