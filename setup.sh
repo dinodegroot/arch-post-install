@@ -1,11 +1,15 @@
 #!/usr/bin/env sh
 
-# First, install Firefox & Thunderbird, with the right localization.
+# First, run updates
+sudo pacman -Syu
+
+# Install Firefox & Thunderbird, with the right localization.
 LANGCODE=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 sudo pacman -Sy --needed firefox firefox-i18n-$LANGCODE thunderbird thunderbird-i18n-$LANGCODE
 
 # Configure terminal apps & tools
 sudo pacman -Sy --needed alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
+
 cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
 
@@ -24,8 +28,7 @@ eval "$(zoxide init bash)"
 EOF
 
 mkdir -p ~/.config/lsd
-if [ ! -f ~/.config/lsd/config.yaml ]; then
-    cat <<'EOF' > ~/.config/lsd/config.yaml
+cat <<'EOF' > ~/.config/lsd/config.yaml
 classic: false
 blocks:
   - permission
@@ -62,11 +65,9 @@ truncate-owner:
   after:
   marker: ""
 EOF
-fi
 
 mkdir -p ~/.config/alacritty
-if [ ! -f ~/.config/alacritty/alacritty.toml ]; then
-    cat <<'EOF' > ~/.config/alacritty/alacritty.toml
+cat <<'EOF' > ~/.config/alacritty/alacritty.toml
 [font]
 size = 14
 normal = { family = "FiraCode Nerd Font" }
@@ -74,21 +75,19 @@ normal = { family = "FiraCode Nerd Font" }
 [window]
 opacity = 0.75
 EOF
-fi
 
 mkdir -p ~/.config/ghostty
-if [ ! -f ~/.config/ghostty/config ]; then
-    cat <<'EOF' > ~/.config/ghostty/config
+cat <<'EOF' > ~/.config/ghostty/config
 font-size = 14
 font-family = "FiraCode Nerd Font"
 background-opacity = 0.75
 EOF
-fi
 
-if [ ! -f ~/.config/starship.toml ]; then
-    starship preset gruvbox-rainbow -o ~/.config/starship.toml
-fi
+starship preset gruvbox-rainbow -o ~/.config/starship.toml
 
 # Install some more CLI tools
 sudo pacman -Sy --needed git openssh htop bashtop jq yq lazygit ducker dysk
+
+# Install Bitwarden
+sudo pacman -Sy --needed bitwarden
 
