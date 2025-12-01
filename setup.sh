@@ -12,7 +12,7 @@ LANGCODE=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 sudo pacman -S --needed --noconfirm firefox firefox-i18n-$LANGCODE thunderbird thunderbird-i18n-$LANGCODE
 
 # Configure terminal apps & tools
-sudo pacman -S --needed --noconfirm alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij
+sudo pacman -S --needed --noconfirm alacritty ghostty otf-firamono-nerd ttf-firacode-nerd bat zoxide lsd starship zellij less
 
 cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
@@ -120,6 +120,11 @@ sudo pacman -S --needed --noconfirm code intellij-idea-community-edition
 # Install some other tools
 sudo pacman -S --needed --noconfirm obsidian dbeaver
 
+# Enable multilib & install Steam
+sudo perl -0 -p -i -e 's/\n#\[multilib\]\n#/\n[multilib]\n/' /etc/pacman.conf
+sudo pacman -Sy
+sudo pacman -S --needed --noconfirm steam
+
 # Install Flatpak's
 sudo pacman -S --needed --noconfirm flatpak
 sudo flatpak install --noninteractive flathub com.google.Chrome
@@ -133,4 +138,4 @@ fastfetch | lolcat
 
 # Echo SSH key
 echo "Add the following SSH key to your GitHub settings:"
-cat ~/.ssh/id_25519.pub | lolcat
+cat ~/.ssh/id_ed25519.pub | lolcat
