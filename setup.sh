@@ -117,6 +117,9 @@ sudo usermod -aG docker $USER
 # Install IDE's
 sudo pacman -S --needed --noconfirm code intellij-idea-community-edition
 
+# Install some other tools
+sudo pacman -S --needed --noconfirm obsidian dbeaver
+
 # Install Flatpak's
 sudo pacman -S --needed --noconfirm flatpak
 sudo flatpak install --noninteractive flathub com.google.Chrome
